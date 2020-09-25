@@ -1,0 +1,45 @@
+@charset "utf-8";
+@import "~bulma/sass/utilities/_all";
+
+// variable
+$primary: #81B29A;
+$primary-invert: findColorInvert($primary);
+
+$dark: #3D405B;
+$dark-invert: findColorInvert($dark);
+
+$danger: #E07A5F;
+$danger-invert: findColorInvert($danger);
+
+$warning: #F2CC8F;
+$warning-invert: findColorInvert($warning);
+
+$success: #b7e4c7;
+$success-invert: findColorInvert($success);
+
+$info: #98c1d9;
+$info-invert: findColorInvert($info);
+
+$link: #4c9bc8;
+$link-invert: findColorInvert($link);
+
+// Setup $colors to use as bulma classes 
+$colors: (
+    "dark": ($dark, $dark-invert),
+    "primary": ($primary, $primary-invert),
+    "info": ($info, $info-invert),
+    "success": ($success, $success-invert),
+    "warning": ($warning, $warning-invert),
+    "danger": ($danger, $danger-invert),
+    "link": ($link, $link-invert),
+);
+
+// Links
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
+
+
+// Вся библиотека
+@import "~/node_modules/bulma";
+@import "~buefy/src/scss/buefy";
