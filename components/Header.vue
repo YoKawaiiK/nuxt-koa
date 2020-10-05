@@ -1,6 +1,10 @@
 <template>
   <div>
-    <nav class="navbar is-size-5" role="navigation" aria-label="main navigation">
+    <nav
+      class="navbar has-background-theme is-fixed-top is-size-5"
+      role="navigation"
+      aria-label="main navigation"
+    >
       <div class="navbar-brand">
         <a class="navbar-item" href="https://bulma.io">
           <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
@@ -9,6 +13,7 @@
         <a
           role="button"
           class="navbar-burger burger"
+          @click="sidebarOpen = !sidebarOpen"
           aria-label="menu"
           aria-expanded="false"
           data-target="navbarBasicExample"
@@ -22,11 +27,14 @@
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
           <nuxt-link class="navbar-item" :to="{name: 'index'}">Главная</nuxt-link>
+          <nuxt-link class="navbar-item" :to="{name: 'profile-user_id'}">Профиль</nuxt-link>
         </div>
         <div class="navbar-end">
           <div class="navbar-item">
-            <b-dropdown 
-            position="is-bottom-left" append-to-body aria-role="menu">
+            <!-- <b-dropdown 
+            position="is-bottom-left" 
+            append-to-body 
+            aria-role="menu">
               <a class="navbar-item" slot="trigger" role="button">
                 <fas icon="bars" size="2x" />
               </a>
@@ -70,21 +78,87 @@
                 <fas icon="sign-out-alt" />
                 <span class="is-size-5">Выход</span>
               </b-dropdown-item>
+            </b-dropdown>-->
 
-            </b-dropdown>
-            
+            <a @click="sidebarOpen = !sidebarOpen" class="navbar-item">
+              <fas icon="angle-left" size="2x" />
+            </a>
+
+            <b-sidebar
+              type="is-theme"
+              :fullheight="sidebarFullheight"
+              :right="sidebarRight"
+              :mobile="sidebarFullwidth"
+              v-model="sidebarOpen"
+            >
+              <a class="mt-3 ml-4"
+                @click="sidebarOpen = !sidebarOpen"
+              >
+                <fas icon="angle-left" size="3x" rotation="180"/>
+              </a>
+              
+              <aside class="menu mt-3 ml-4 is-size-5">
+                <p class="menu-label">Аккаунт</p>
+                <ul class="menu-list">
+                  <li>
+                    <nuxt-link :to="{name: 'profile-user_id'}">
+                      <fas icon="home" />
+                      <span> Профиль </span>
+                    </nuxt-link>
+                  </li>
+                </ul>
+
+                <p class="menu-label">Навигация</p>
+                <ul class="menu-list">
+                  <li>
+                    <nuxt-link :to="{name: 'index'}">
+                      <fas icon="home" />
+                      <span>Главная</span>
+                    </nuxt-link>
+                  </li>
+                </ul>
+                <p class="menu-label">Действия</p>
+                <ul class="menu-list">
+                  <li>
+                    <nuxt-link :to="{name: 'auth-login'}">
+                      <fas icon="user-lock" />
+                      <span>Вход</span>
+                    </nuxt-link>
+                  </li>
+                  <li>
+                    <nuxt-link :to="{name: 'auth-signin'}">
+                      <fas icon="sign-in-alt" />
+                      <span>Регистрация</span>
+                    </nuxt-link>
+                  </li>
+                  <li>
+                    <a>
+                      <fas icon="sign-out-alt" />
+                      <span>Выход</span>
+                    </a>
+                  </li>
+                </ul>
+              </aside>
+            </b-sidebar>
           </div>
         </div>
       </div>
-    </nav> 
+    </nav>
   </div>
 </template>
 <script>
 export default {
   name: 'Header',
-
+  data() {
+    return {
+      sidebarOpen: false,
+      sidebarFullwidth: 'fullwidth',
+      sidebarFullheight: true,
+      sidebarRight: true,
+    }
+  }
 }
 </script>
 
-<style>
+<style lang="css">
 </style>

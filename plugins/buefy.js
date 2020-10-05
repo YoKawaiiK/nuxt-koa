@@ -2,13 +2,18 @@ import Vue from 'vue'
 import { 
     ConfigProgrammatic, 
     Snackbar,
-    Dropdown,
-    Checkbox
+    Sidebar,
+    Checkbox,
+
+    // not used
+    Dropdown
 } from 'buefy'
 
 Vue.use(Snackbar)
-    .use(Dropdown)
+    .use(Sidebar)
     .use(Checkbox)
+    
+    .use(Dropdown)
 
 ConfigProgrammatic.setOptions({
     defaultIconPack: 'fas',

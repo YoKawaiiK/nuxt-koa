@@ -1,49 +1,46 @@
 <template>
   <div>
-    <div class="container has-text-centered" autocomplete>
-      <div class="column is-4 is-offset-4">
-        <br />
-        <br />
-        <br />
-        <h3 class="title has-text-black">Вход</h3>
-        <hr class="login-hr" />
-        <p class="subtitle has-text-black">Ваш логин и пароль</p>
-        <div class="box">
-          <form>
-            <div class="field">
-              <div class="control">
-                <input class="input is-medium" type="email" placeholder="Почта" autofocus />
+    <div class="has-text-centered">
+      <div class="has-block-centered ">
+        <div class="column is-centered is-desktop is-4">
+          <div class="box">
+            <h2 class="title has-text-black">Вход</h2>
+            
+            <form autocomplete>
+              <div class="field">
+                <div class="control">
+                  <input class="input is-medium" type="email" placeholder="Почта" autofocus />
+                </div>
               </div>
-            </div>
 
-            <div class="field">
-              <div class="control">
-                <input class="input is-medium" type="password" placeholder="Пароль" />
+              <div class="field">
+                <div class="control">
+                  <input class="input is-medium" type="password" placeholder="Пароль" />
+                </div>
               </div>
-            </div>
-            <div class="field">
-              <div class="control">
-                <b-checkbox v-model="remember">Запомнить меня</b-checkbox>
+              <div class="field">
+                <div class="control">
+                  <b-checkbox v-model="remember">Запомнить меня</b-checkbox>
+                </div>
               </div>
-            </div>
-            <button class="button is-block is-primary is-large is-fullwidth">
-              <fas icon="user-lock" />
-              <span>Войти</span>
-            </button>
-            <hr />
-            <div class="field is-grouped">
-              <div class="control">
-                <nuxt-link :to="{name: 'auth-signin'}">
-                  Регистрация
-                </nuxt-link>
+              <button class="button is-block has-background-primary is-large is-fullwidth">
+                <fas icon="user-lock" />
+                <span>Войти</span>
+              </button>
+              <hr />
+              <div class="field is-grouped">
+                <div class="control">
+                  <nuxt-link :to="{name: 'auth-signin'}">Регистрация</nuxt-link>
+                </div>
+                <div class="control">
+                  <a class="is-danger" href="../">Не помню пароль...</a>
+                </div>
               </div>
-              <div class="control">
-                <a class="is-dnger" href="../">Не помню пароль...</a>
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
+      <br>
     </div>
   </div>
 </template>
@@ -54,8 +51,14 @@ export default {
   head() {
     return {
       title: 'Вход',
+      meta: [
+        {
+          guest: true
+        }
+      ]
     }
   },
+  middleware: 'guest',
   data() {
     return {
       remember: false,

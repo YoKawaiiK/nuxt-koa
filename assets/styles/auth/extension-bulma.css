@@ -1,0 +1,9 @@
+@media all and (min-device-width: 890px) {
+  .has-block-centered {
+    display: flex !important;
+    height: calc(100vh - 50px);
+    width: 100vw;
+    /* justify-content: center; */
+    align-items: center;
+  }
+}

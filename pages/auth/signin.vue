@@ -1,74 +1,90 @@
 <template>
   <div>
-    <div class="container has-text-centered" autocomplete>
-      <div class="column is-4 is-offset-4">
-        <br />
-        <br />
-        <br />
-        <h3 class="title has-text-black">Регистрация</h3>
-        <hr class="login-hr" />
-        <p class="subtitle has-text-black">Введите Вашу почту и придумайте пароль</p>
-        <div class="box">
-          <form>
+    <div class="has-text-centered">
+      <div class="has-block-centered">
+        <div class="column is-centered is-desktop is-4">
+          <div class="box">
+            <h2 class="title has-text-black">Регистрация</h2>
 
-            <div class="field">
-              <div class="control">
-                <input class="input is-medium" 
-                type="email" placeholder="Почта" autofocus />
+            <form autocomplete>
+              <div class="field">
+                <div class="control">
+                  <input
+                    class="input is-medium"
+                    type="email"
+                    placeholder="Почта"
+                    autofocus
+                  />
+                </div>
               </div>
-            </div>
 
-            <div class="field">
-              <div class="control">
-                <input class="input is-medium" 
-                type="password" placeholder="Пароль" />
+              <div class="field">
+                <div class="control">
+                  <input
+                    class="input is-medium"
+                    type="password"
+                    placeholder="Пароль"
+                  />
+                </div>
               </div>
-            </div>
 
-            <div class="field">
-              <div class="control">
-                <input class="input is-medium" 
-                type="password" placeholder="Потвердите пароль" />
+              <div class="field">
+                <div class="control">
+                  <input
+                    class="input is-medium"
+                    type="passwordDouble"
+                    placeholder="Повторите пароль"
+                  />
+                </div>
               </div>
-            </div>
-
-            <button class="button is-block is-success is-large is-fullwidth">
-              <fas icon="sign-in-alt" />
-              <span>Зарегистрироваться</span>
-            </button>
-
-            <hr />
-
-            <div class="field is-grouped">
-              <div class="control">
-                <nuxt-link :to="{name: 'auth-login'}">
-                    Вход
-                </nuxt-link>
+              <button
+                class="button is-block has-background-warning is-large is-fullwidth"
+              >
+                <fas icon="user-lock" />
+                <span>Зарегистрироваться</span>
+              </button>
+              <hr />
+              <div class="field is-grouped">
+                <div class="control">
+                  <nuxt-link :to="{ name: 'auth-login' }">Вход</nuxt-link>
+                </div>
               </div>
-              <div class="control">
-                <a class="is-dnger" href="../">Не помню пароль...</a>
+              <hr />
+              <div class="field is-grouped">
+                <a class="control" href="/api/auth/google">
+                  <div class="button is-medium">
+                    <span class="icon is-medium">
+                      <fas :icon="['fab', 'google']" size="lg"/>
+                    </span>
+                  </div>
+                </a>
+
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
+      <br />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'login',
+  name: 'signin',
   head() {
     return {
       title: 'Регистрация',
+      meta: [
+        {
+          guest: true
+        }
+      ]
     }
   },
+  middleware: 'guest',
   data() {
-    return {
-      remember: false,
-      formStatus: 'login',
-    }
+    return {}
   },
   methods: {
     login() {},

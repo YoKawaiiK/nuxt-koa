@@ -7,17 +7,22 @@ import {
     faSignOutAlt,
     faUserLock,
     faBars,
+    faAngleLeft,
     faHome
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+// Иконки брендов
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 
 
 library.add(
     faSignInAlt,
     faSignOutAlt,
     faUserLock,
+    faAngleLeft,
+    faBars,
     faHome,
-    faBars
+    faGoogle
 )
 
 Vue.component('fas', FontAwesomeIcon)

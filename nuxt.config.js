@@ -1,4 +1,4 @@
-// import app from './server/index'
+
 
 /* eslint-disable prettier/prettier */
 export default {
@@ -33,19 +33,33 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+    '@nuxtjs/dotenv'
   ],
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     '@nuxtjs/axios',
+    ['cookie-universal-nuxt', { alias: 'cookies' }],
   ],
   // server middleware
   serverMiddleware: {
     '/api': '~/server/index.js'
   },
+  
+  middleware: [
+    'loadingCookies',
+    // for secure route
+    'auth',
+    'guest'
+
+
+  ],
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
 
   },
+  watch: [
+    '~/server'
+  ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
@@ -58,3 +72,4 @@ export default {
     },
   },
 }
+
