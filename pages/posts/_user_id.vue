@@ -2,7 +2,7 @@
   <div>
     
     <p>posts</p>
-    {{GET_role_id}}
+    {{GET_user}}
   </div>
 </template>
 <script>
@@ -20,9 +20,9 @@ export default {
 
     // Получить данные о пользователе через jwt
     // установить cookies 
-    await store.dispatch('cookies/SET_COOKIES')
+    await store.commit('cookies/SET_COOKIES')
     return {
-      GET_role_id: store.getters['cookies/GET_role_id']
+      GET_user: store.getters['cookies/GET_user']
     }
   },
 

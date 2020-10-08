@@ -11,18 +11,21 @@ const google = new GoogleStrategy({
     try {
       const checkUser = await db.query(`
         SELECT 
-          user_id, role_id
+          user_id, role_id, family_name, given_name, login
         FROM 
           users
         WHERE
           user_id = ${profile.id}
       `)
-      // Найденм
+      // Найден
       if (typeof checkUser[0][0] != 'undefined') {
         // Объект найденого пользователя
         return done(null, {
           user_id: profile.id,
-          role_id: checkUser[0][0].role_id
+          role_id: checkUser[0][0].role_id,
+          family_name: checkUser[0][0].family_name,
+          given_name: checkUser[0][0].given_name,
+          login: checkUser[0][0].login
         })
       }
       // Не найден
@@ -47,7 +50,10 @@ const google = new GoogleStrategy({
           // Объект нового пользователя
           return done(null, {
             user_id: profile.id,
-            role_id: 1
+            role_id: 1,
+            family_name: profile.name.family_name,
+            given_name: profile.name.given_name,
+            login: 'null'
           })
         }
       }

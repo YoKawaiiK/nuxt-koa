@@ -4,44 +4,94 @@ const Router = require('koa-router')
 const passport = require('koa-passport')
 const jwt = require('jsonwebtoken')
 
+const db = require('../../database')
+const { deleteAllCookies } = require('../../functions/index')
 
 const auth = new Router({ prefix: '/auth' })
 
 auth
-  .get('/google',
+  .get(
+    '/google',
     passport.authenticate('google', { scope: ['email', 'profile'] })
   )
-
   .get('/google/redirect', async (ctx) => {
     await passport.authenticate('google', (result) => {
-      if (result.error || result.signInError) { 
+      if (result.error || result.signInError) {
         ctx.redirect('/auth/signin')
         return
-      }
-      else {
+      } else {
         ctx.redirect(`/posts/${result.user_id}`)
         // save token like accept login
-        const token = jwt.sign(
-          {user_id: result.user_id}, 
-          process.env.JWT_KEY, {
-            expiresIn: parseInt(process.env.JWT_EXPIRES_IN)
-          }
+
+        const expiresCookie = Math.floor(
+          Date.now() + parseInt(process.env.JWT_EXPIRES_IN)
         )
+
+        const token = jwt.sign(
+          {
+            exp: expiresCookie / 1000,
+            data: {
+              user_id: result.user_id,
+              role_id: result.role_id,
+            },
+          },
+          process.env.JWT_KEY
+          // {
+          //   expiresIn: maxAge
+          // }
+        )
+
         ctx.cookies.set('jwt', token, {
-          maxAge: parseInt(process.env.JWT_EXPIRES_IN)
+          expires: new Date(expiresCookie),
         })
-        ctx.cookies.set('role_id', result.role_id, {
-          httpOnly: false,
-          maxAge: parseInt(process.env.JWT_EXPIRES_IN)
-        })
-        ctx.cookies.set('user_id', result.user_id, {
-          httpOnly: false,
-          maxAge: parseInt(process.env.JWT_EXPIRES_IN)
-        })
+
+        // Создается, чтобы можно было установить действвие куки на стороне пользователя
+        result['expiresCookie'] = expiresCookie
+
+        for (const key in result) {
+          ctx.cookies.set(key, JSON.stringify(result[key]), {
+            httpOnly: false,
+            expires: new Date(expiresCookie),
+          })
+        }
 
         return
       }
     })(ctx)
+  })
+  .get('/cookies/delete', async (ctx) => {
+    try {
+      // custom functions for delete all cookies
+      if (!deleteAllCookies(ctx)) {
+        ctx.body = { cookies: false }
+      }
+    } 
+    catch (error) {
+      console.log(error);
+      return (ctx.body = { deleted: false })
+    }
+    ctx.body = { deleted: true }
+  })
+  .post('/login/set', async (ctx) => {
+    try {
+      const decoded = jwt.verify(ctx.cookies.get('jwt'), process.env.JWT_KEY)
+
+      const login = await ctx.request.body.login
+
+      const setLogin = await db.query(`
+        UPDATE users 
+        SET login = '${login}' 
+        WHERE (user_id = '${decoded.user_id}');
+      `)
+      if (!setLogin[0].warningStatus) {
+        new Error('error setLogin')
+      }
+    } catch (error) {
+      ctx.body = { setLogin: false }
+      return false
+    }
+
+    ctx.body = { setLogin: true }
   })
 
 module.exports = auth

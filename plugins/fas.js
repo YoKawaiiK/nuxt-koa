@@ -8,7 +8,8 @@ import {
     faUserLock,
     faBars,
     faAngleLeft,
-    faHome
+    faHome,
+    faUser
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 // Иконки брендов
@@ -22,7 +23,8 @@ library.add(
     faAngleLeft,
     faBars,
     faHome,
-    faGoogle
+    faGoogle,
+    faUser
 )
 
 Vue.component('fas', FontAwesomeIcon)

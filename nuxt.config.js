@@ -1,5 +1,4 @@
 
-
 /* eslint-disable prettier/prettier */
 export default {
   ssr: true,
@@ -55,7 +54,7 @@ export default {
   ],
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-
+    '/api/': { target: `${process.env.BASE_URL}/api`}
   },
   watch: [
     '~/server'

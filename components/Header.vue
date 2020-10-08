@@ -98,15 +98,18 @@
               </a>
               
               <aside class="menu mt-3 ml-4 is-size-5">
+                <div v-show="GET_user_name">
                 <p class="menu-label">Аккаунт</p>
                 <ul class="menu-list">
                   <li>
                     <nuxt-link :to="{name: 'profile-user_id'}">
-                      <fas icon="home" />
-                      <span> Профиль </span>
+                      <fas icon="user" />
+                      <span> {{GET_user_name}} </span>
                     </nuxt-link>
                   </li>
                 </ul>
+                </div>
+                
 
                 <p class="menu-label">Навигация</p>
                 <ul class="menu-list">
@@ -119,20 +122,23 @@
                 </ul>
                 <p class="menu-label">Действия</p>
                 <ul class="menu-list">
-                  <li>
+                  <li v-show="GET_user == null">
                     <nuxt-link :to="{name: 'auth-login'}">
                       <fas icon="user-lock" />
                       <span>Вход</span>
                     </nuxt-link>
                   </li>
-                  <li>
+                  <li v-show="GET_user == null">
                     <nuxt-link :to="{name: 'auth-signin'}">
                       <fas icon="sign-in-alt" />
                       <span>Регистрация</span>
                     </nuxt-link>
                   </li>
-                  <li>
-                    <a>
+                  <li 
+                  v-show="GET_user != null"
+                  @click="deleteCookies()"
+                  >
+                    <a >
                       <fas icon="sign-out-alt" />
                       <span>Выход</span>
                     </a>
@@ -147,6 +153,8 @@
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'Header',
   data() {
@@ -156,6 +164,12 @@ export default {
       sidebarFullheight: true,
       sidebarRight: true,
     }
+  },
+  computed: {
+    ...mapGetters('cookies', ['GET_user', 'GET_user_name'])
+  },
+  methods: {
+    ...mapActions('cookies', ['deleteCookies']),
   }
 }
 </script>
