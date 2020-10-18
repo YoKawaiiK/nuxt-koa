@@ -7,14 +7,29 @@ export default {
       return state.user;
     },
     GET_user_name(state) {
-      if (state.user) {
+      if (state.user != null) {
         return `${state.user.given_name} ${state.user.family_name}`
       }
-    }
+    },
+    GET_user_id(state) {
+      if (state.user != null) {
+        return state.user.user_id
+      }
+    },
+    GET_user_login(state) {
+      if (state.user) {
+        const login = state.user.login;
+        return typeof login == 'number' ? `${login}`: login
+      } 
+    },
   },
   mutations: {
     SET_COOKIES(state) {
       const user = this.$cookies.getAll()
+      // Если куки пусты
+      if (JSON.stringify(user) == '{}') {
+        return false
+      }
       // На стороне сервера jwt доступен, поэтому исключить его
       delete user.jwt;
 

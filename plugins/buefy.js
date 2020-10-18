@@ -4,18 +4,18 @@ import {
     Snackbar,
     Sidebar,
     Checkbox,
-
-    // not used
-    Dropdown
+    Pagination,
+    Modal
 } from 'buefy'
 
 Vue.use(Snackbar)
     .use(Sidebar)
     .use(Checkbox)
+    .use(Pagination)
+    .use(Modal)
     
-    .use(Dropdown)
 
 ConfigProgrammatic.setOptions({
     defaultIconPack: 'fas',
-    defaultIconComponent: 'font-awesome-icon'
+    defaultIconComponent: 'fas'
 })

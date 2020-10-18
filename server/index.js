@@ -11,6 +11,8 @@ const bodyParser = require('koa-bodyparser')
 // router
 const router = require('./router/index')
 
+const middlewares = require('./middlewares/index')
+
 
 const app = new Koa()
 
@@ -19,7 +21,11 @@ app
     .use(bodyParser())
     .use(passport.initialize())
     
-    .use(router.routes())
+for (const i of Object.keys(middlewares)) {
+    app.use(middlewares[i])
+}
+
+app.use(router.routes())
     .use(router.allowedMethods())
 
 

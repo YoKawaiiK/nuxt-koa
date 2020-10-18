@@ -7,9 +7,16 @@ import {
     faSignOutAlt,
     faUserLock,
     faBars,
-    faAngleLeft,
     faHome,
-    faUser
+    faUser,
+
+    // PostPagination
+    faEdit,
+    faTrash,
+    faPen, 
+    faAngleLeft,
+    faAngleRight,
+    faArchive
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 // Иконки брендов
@@ -20,11 +27,17 @@ library.add(
     faSignInAlt,
     faSignOutAlt,
     faUserLock,
-    faAngleLeft,
     faBars,
     faHome,
     faGoogle,
-    faUser
+    faUser,
+
+    faEdit,
+    faTrash,
+    faPen,
+    faAngleLeft,
+    faAngleRight,
+    faArchive
 )
 
 Vue.component('fas', FontAwesomeIcon)

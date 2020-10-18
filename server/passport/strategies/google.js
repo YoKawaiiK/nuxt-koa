@@ -32,7 +32,7 @@ const google = new GoogleStrategy({
       else {
         const newUser = await db.query(`
           INSERT INTO users 
-            (user_id, family_name, given_name, email, email_verified, role_id) 
+            (user_id, family_name, given_name, email, email_verified, role_id, login) 
           VALUES 
             (
               '${profile.id}', 
@@ -40,7 +40,8 @@ const google = new GoogleStrategy({
               '${profile.name.givenName}', 
               '${profile.emails[0].value}', 
               ${profile.emails[0].verified},
-              ${1}
+              ${1},
+              '${profile.id}'
             );
         `)
         if (newUser[0].warningStatus != 0) {
@@ -53,7 +54,7 @@ const google = new GoogleStrategy({
             role_id: 1,
             family_name: profile.name.family_name,
             given_name: profile.name.given_name,
-            login: 'null'
+            login: profile.id
           })
         }
       }

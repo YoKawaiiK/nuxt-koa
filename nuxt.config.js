@@ -60,6 +60,11 @@ export default {
     '~/server'
   ],
 
+  router: {
+    // linkActiveClass: 'is-active',
+    // linkExactActiveClass: 'is-active',
+  },
+
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     postcss: {

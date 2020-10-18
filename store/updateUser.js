@@ -15,6 +15,7 @@ export default {
 
         await commit('cookies/SET_login', login, {root: true})
         await dispatch('messages/setLoginTrue', null, {root: true})
+        await commit('cookies/SET_COOKIES', null, {root: true})
       }
     }
   }

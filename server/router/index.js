@@ -9,7 +9,8 @@ const indexRouter = new Router()
 const mainRouter = [posts, auth]
 
 for (const router of mainRouter) {
-    indexRouter.use(router.routes()) 
+    indexRouter
+        .use(router.routes()) 
         .use(router.allowedMethods())
 };
 

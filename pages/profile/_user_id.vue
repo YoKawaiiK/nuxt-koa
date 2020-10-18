@@ -1,8 +1,15 @@
 <template>
   <div>
     <div class="container">
+      
       <div class="column is-half is-offset-one-quarter">
         <div class="box">
+                   
+          <div class="field">
+            <h2 class="title">
+              Профиль
+            </h2>
+          </div>
 
           <div class="field">
             <label class="label">Логин</label>
@@ -11,7 +18,7 @@
               <input v-if="GET_user.login == null"
               class="input" placeholder="Придумайте логин" v-model="login">
               <input v-else
-              class="input" :placeholder="GET_user.login" v-model="login">
+              class="input" v-model="login">
 
               <span class="icon is-small is-left">
                 <fas icon="user-lock" />
@@ -52,7 +59,7 @@
               </div>
             </div>
 
-          <div class="field is-grouped is-grouped-centered">
+          <!-- <div class="field is-grouped is-grouped-centered">
             <div class="control">
               <div class="button is-info">
                 <span class="icon">
@@ -61,7 +68,7 @@
                 <span>Обновить данные</span>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
         
@@ -70,9 +77,18 @@
   </div>
 </template>
 <script>
-import {mapGetters, mapActions} from 'vuex'
+// import {mapGetters, mapActions} from 'vuex'
+import {mapActions} from 'vuex'
 
 export default {
+  // Двусторонняя привязка также работает
+  async asyncData({store}) {
+    const user = store.getters['cookies/GET_user']
+    return ({
+      login: user.login,
+      GET_user: user
+    })
+  },
   name: 'profile',
   head() {
     return {
@@ -80,14 +96,9 @@ export default {
     }
   },
   middleware: 'auth',
-  data() {
-    return {
-      login: null
-    }
-  },
-  computed: {
-    ...mapGetters('cookies', ['GET_user'])
-  },
+  // computed: {
+  //   ...mapGetters('cookies', ['GET_user'])
+  // },
   methods: {
     ...mapActions('updateUser', ['setLogin'])
   }

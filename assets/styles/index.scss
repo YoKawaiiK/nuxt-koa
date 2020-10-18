@@ -35,11 +35,11 @@ $info-light: findLightColor($info);
 $info-dark: findDarkColor($info);
 
 
-$link: #4c9bc8;
-$link-invert: findColorInvert($link);
-$link-light: findLightColor($link);
-$link-dark: findDarkColor($link);
-$link-focus-border: $primary;
+// $link: #4c9bc8;
+// $link-invert: findColorInvert($link);
+// $link-light: findLightColor($link);
+// $link-dark: findDarkColor($link);
+// $link-focus-border: $primary;
 
 
 $theme: #f5f3f4;
@@ -52,7 +52,7 @@ $colors: (
     "success": ($success, $success-invert, $success-light, $success-dark),
     "warning": ($warning, $warning-invert, $warning-light, $warning-dark),
     "danger": ($danger, $danger-invert, $danger-light, $danger-dark),
-    "link": ($link, $link-invert, $link-light, $link-dark),
+    // "link": ($link, $link-invert, $link-light, $link-dark),
     "theme": ($theme, $theme-invert),
 );
 

@@ -16,11 +16,20 @@ auth
   )
   .get('/google/redirect', async (ctx) => {
     await passport.authenticate('google', (result) => {
+      
+      // Если уже был вход
+      const token = ctx.cookies.get('jwt')
+      if (token) {
+        ctx.redirect(`/posts/${result.login}/1`)
+        return 
+      }
+
       if (result.error || result.signInError) {
         ctx.redirect('/auth/signin')
         return
       } else {
-        ctx.redirect(`/posts/${result.user_id}`)
+        ctx.redirect(`/posts/${result.login}/1`)
+        
         // save token like accept login
 
         const expiresCookie = Math.floor(
@@ -74,14 +83,14 @@ auth
   })
   .post('/login/set', async (ctx) => {
     try {
-      const decoded = jwt.verify(ctx.cookies.get('jwt'), process.env.JWT_KEY)
+      const user_id = ctx.state.user.user_id
 
       const login = await ctx.request.body.login
 
       const setLogin = await db.query(`
         UPDATE users 
         SET login = '${login}' 
-        WHERE (user_id = '${decoded.user_id}');
+        WHERE (user_id = '${user_id}');
       `)
       if (!setLogin[0].warningStatus) {
         new Error('error setLogin')
