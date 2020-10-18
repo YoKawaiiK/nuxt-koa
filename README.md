@@ -1,6 +1,15 @@
 # nuxt-koa
 
+## Decription
+
+The project is focused on using SSR using nuxt and authorization in the system using Google OAuth2.
+
 ## Build Setup
+
+1. First, install MySQL and apply Dump, which is located at /server/database/MySQL/dump_empty.sql.
+1. In the .env file, add the environment variables GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET.
+1. Read and configure other settings in .env.
+1. Follow other commands:
 
 ```bash
 # install dependencies
